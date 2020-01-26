@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible"
+		content="ie=edge">
+  <title>Web Components</title>
+  <style>
+	div {
+	  border: 2px solid black;
+	  padding: 5px;
+	}
+  </style>
+  <script async
+		  src="tooltip.js"></script>
+  <script async
+		  src="confirm-link.js"></script>
+</head>
+<body>
+
+<h2>basics custom elements</h2>
+
+<!--<template id="tooltip-template">-->
+<!--  <slot>Some default</slot>-->
+<!--  <span>(?) </span>-->
+<!--</template>-->
+
+<hr>
+<h3>u-tooltip</h3>
+<hr>
+
+<p>
+  <u-tooltip text="Web components is a set of standards">Web components</u-tooltip>
+  are awesome
+</p>
+
+<u-tooltip text="Fuf!">Here wt go!</u-tooltip>
+
+<br><br>
+
+<u-tooltip></u-tooltip>
+
+<br><br>
+
+<div>Этот div - не вебкомпонент</div>
+
+<br><br>
+
+<hr>
+<h3>u-confirm-link</h3>
+<hr>
+
+<a is="u-confirm-link"
+   href="https://developer.mozilla.org/ru/docs/Web/API"
+   target="_blank">
+  Интерфейсы веб API
+</a>
+
+</body>
+</html>
