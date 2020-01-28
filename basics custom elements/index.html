@@ -1,62 +1,94 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport"
-		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible"
-		content="ie=edge">
+        content="ie=edge">
   <title>Web Components</title>
   <style>
-	div {
-	  border: 2px solid black;
-	  padding: 5px;
-	}
+
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --color-primary: yellow;
+      --clean-color: #fff;
+    }
+
+    /* div {
+      border: 2px solid black;
+      padding: 5px;
+    }
+
+    .hightlight {
+      background-color: red;
+    } */
   </style>
   <script async
-		  src="tooltip.js"></script>
+          src="tooltip.js"></script>
   <script async
-		  src="confirm-link.js"></script>
+          src="confirm-link.js"></script>
 </head>
+
 <body>
 
-<h2>basics custom elements</h2>
+  <h2>basics custom elements</h2>
 
-<!--<template id="tooltip-template">-->
-<!--  <slot>Some default</slot>-->
-<!--  <span>(?) </span>-->
-<!--</template>-->
+  <!--<template id="tooltip-template">-->
+  <!--  <slot>Some default</slot>-->
+  <!--  <span>(?) </span>-->
+  <!--</template>-->
 
-<hr>
-<h3>u-tooltip</h3>
-<hr>
+  <hr>
+  <h3>u-tooltip</h3>
+  <hr>
 
-<p>
-  <u-tooltip text="Web components is a set of standards">Web components</u-tooltip>
-  are awesome
-</p>
+  <p class="first">
+    <u-tooltip text="Web components is a set of standards">
+      <span class="hightlight">
+        Web components
+      </span>
+    </u-tooltip>
+    are awesome
+  </p>
 
-<u-tooltip text="Fuf!">Here wt go!</u-tooltip>
+  <p>
+    <u-tooltip text="Web components is a set of standards">
+      <span class="hightlight">
+        Item components
+      </span>
+    </u-tooltip>
+    are awesome
+  </p>
 
-<br><br>
+  <u-tooltip text="Fuf!">
+    <span class="here">Here wt go!</span>
+  </u-tooltip>
 
-<u-tooltip></u-tooltip>
+  <br><br>
 
-<br><br>
+  <u-tooltip class="item-color"></u-tooltip>
 
-<div>Этот div - не вебкомпонент</div>
+  <br><br>
 
-<br><br>
+  <div>Этот div - не вебкомпонент</div>
 
-<hr>
-<h3>u-confirm-link</h3>
-<hr>
+  <br><br>
 
-<a is="u-confirm-link"
-   href="https://developer.mozilla.org/ru/docs/Web/API"
-   target="_blank">
-  Интерфейсы веб API
-</a>
+  <hr>
+  <h3>u-confirm-link</h3>
+  <hr>
+
+  <a is="u-confirm-link"
+     href="https://developer.mozilla.org/ru/docs/Web/API"
+     target="_blank">
+    Интерфейсы веб API
+  </a>
 
 </body>
+
 </html>

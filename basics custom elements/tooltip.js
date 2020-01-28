@@ -1,11 +1,34 @@
+/*
+
+  connectedCallback() - Срабатывает, когда пользовательский элемент впервые добавляется в DOM.
+
+  disconnectedCallback() - Срабатывает, когда пользовательский элемент удаляется из DOM.
+
+  adoptedCallback() - Срабатывает, когда пользовательский элемент перемещен в новый документ.
+
+  attributeChangedCallback() - Срабатывает, когда пользовательскому элементу добавляют, удаляют или изменяют атрибут.
+
+  static get observedAttributes() - наблюдать за атрибутами.
+
+*/
+
+
 class Tooltip extends HTMLElement {
 
   _tooltipContainer;
   _tooltipText = 'Текст по умолчанию';
   _slotString = `
                 <style>
+
+                  :host {
+                    --color-primary: blue;
+                    --clean-color: #fff;
+                  }
+
                    div {
                     position: absolute;
+                    top: 1rem;
+                    left: 7rem;
                     background-color: white;
                     color: blue;
                     border: 2px solid orange;
@@ -13,9 +36,45 @@ class Tooltip extends HTMLElement {
                     z-index: 10;
                     text-align: center;
                   };
+
+                  .hightlight {
+                    background-color: blue;
+                  }
+
+                  ::slotted(span.hightlight) {
+                    background-color: yellow;
+                    border-bottom: 5px solid red;
+                  }
+
+                  .icon {
+                    background-color: black;
+                    color: #fff;
+                    margin: 0 3px 0;
+                    text-align: center;
+                  }
+
+                  :host {
+                    border: 5px solid green;
+                  }
+
+                  :host(.item-color) {
+                    border: 5px solid #000;
+                    color: var(--clean-color);
+                    background-color: var(--color-primary, #ccc);
+                  }
+
+                  :host span {
+                    border: 5px solid blue;
+                  }
+
+                  :host-context(p.first) {
+                    font-weight: bold;
+                  }
+
                 </style>
+
                 <slot>Some default</slot>
-                <span> (?) </span>
+                <span class="icon"> (?) </span>
   `;
 
   constructor() {
@@ -32,6 +91,23 @@ class Tooltip extends HTMLElement {
   connectedCallback() {
     this.initTooltip();
     this._setTooltipText();
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if(oldValue === newValue) {
+      return;
+    }
+
+    if(name === 'text') {
+      // меняем значение
+      this._tooltipText = newValue;
+    }
+
+  }
+
+  static get observedAttributes() {
+    // TODO в массиве указываем те атрибуты, которые будем слушать
+    return ['text'];
   }
 
   initTooltip() {
