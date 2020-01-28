@@ -17,6 +17,8 @@ class Tooltip extends HTMLElement {
 
   _tooltipContainer;
   _tooltipText = 'Текст по умолчанию';
+  _tooltipIcon;
+  _tooltipVisible = false;
   _slotString = `
                 <style>
 
@@ -94,11 +96,11 @@ class Tooltip extends HTMLElement {
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    if(oldValue === newValue) {
+    if (oldValue === newValue) {
       return;
     }
 
-    if(name === 'text') {
+    if (name === 'text') {
       // меняем значение
       this._tooltipText = newValue;
     }
@@ -110,18 +112,38 @@ class Tooltip extends HTMLElement {
     return ['text'];
   }
 
+  disconnectedCallback() {
+    // TODO очищаем слушателея при удалении элемента из дерева
+    this._tooltipIcon.removeEventListener('mouseenter', this._showTooltip);
+    this._tooltipIcon.removeEventListener('mouseleave', this._hideTooltip);
+  }
+
   initTooltip() {
     // const tooltipIcon = document.createElement('span');
     // tooltipIcon.textContent = '(?) ';
     // this.shadowRoot.appendChild(tooltipIcon);
 
-    const tooltipIcon = this.shadowRoot.querySelector('span');
+    this._tooltipIcon = this.shadowRoot.querySelector('span');
 
-    tooltipIcon.addEventListener('mouseenter', this._showTooltip.bind(this));
-    tooltipIcon.addEventListener('mouseleave', this._hideTooltip.bind(this));
+    this._tooltipIcon.addEventListener('mouseenter', this._showTooltip.bind(this));
+    this._tooltipIcon.addEventListener('mouseleave', this._hideTooltip.bind(this));
   }
 
   _showTooltip() {
+    this._tooltipVisible = true;
+    this._render();
+  }
+
+  // TODO метод отвечает за обновление DOM
+  _render() {
+    if (!!this._tooltipVisible) {
+      this._show();
+    } else {
+      this._removeTooltipContent();
+    }
+  }
+
+  _show() {
     this._tooltipContainer = document.createElement('div');
 
     this._setTooltipStyles.bind(this);
@@ -135,9 +157,8 @@ class Tooltip extends HTMLElement {
   }
 
   _hideTooltip() {
-    if (!!this.childNodes) {
-      this._removeTooltipContent();
-    }
+    this._tooltipVisible = false;
+    this._render();
   }
 
   _removeTooltipContent() {
