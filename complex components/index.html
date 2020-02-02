@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Modal</title>
+  <style>
+	* {
+	  box-sizing: border-box;
+	}
+
+	body {
+	  margin: 1rem;
+	  padding: 0;
+	}
+
+	button {
+	  cursor: pointer;
+	}
+  </style>
+  <script src="modal.js"
+		  async>
+  </script>
+</head>
+<body>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam exercitationem facere ipsam, nemo provident ut!</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam exercitationem facere ipsam, nemo provident ut!</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam exercitationem facere ipsam, nemo provident ut!</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam exercitationem facere ipsam, nemo provident ut!</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam exercitationem facere ipsam, nemo provident ut!</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam exercitationem facere ipsam, nemo provident ut!</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam exercitationem facere ipsam, nemo provident ut!</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam exercitationem facere ipsam, nemo provident ut!</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam exercitationem facere ipsam, nemo provident ut!</p>
+<button>Show Details</button>
+
+
+<u-modal>
+  <h3 slot="title"
+	  class="title">Подтверди</h3>
+  <p>Lorem ipsum dolor sit amet.</p>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet, eos.</p>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing?</p>
+</u-modal>
+
+
+<script>
+  const btn = document.querySelector('button');
+  const modal = document.querySelector('u-modal');
+
+  btn.addEventListener('click', () => {
+    // modal.setAttribute('opened', '');
+    modal.open();
+  });
+
+  modal.addEventListener('cancel', () => {
+    console.log('Cancel!')
+  });
+
+  modal.addEventListener('confirm', () => {
+    console.log('Confirm!')
+  });
+</script>
+</body>
+</html>
