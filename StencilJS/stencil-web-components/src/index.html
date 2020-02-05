@@ -1,17 +1,74 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="en">
+<html dir="ltr"
+      lang="en">
+
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
   <title>Stencil Component Starter</title>
 
-  <script type="module" src="/build/stencil-web-components.esm.js"></script>
-  <script nomodule src="/build/stencil-web-components.js"></script>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .side-nav ul {
+      list-style: none;
+    }
+
+    .side-nav li {
+      margin: 1rem 0;
+    }
+
+    .side-nav a {
+      text-decoration: none;
+      color: orange;
+    }
+  </style>
+
+  <script type="module"
+          src="/build/stencil-web-components.esm.js"></script>
+  <script nomodule
+          src="/build/stencil-web-components.js"></script>
 
 </head>
+
 <body>
 
-  <my-component first="Stencil" last="'Don't call me a framework' JS"></my-component>
+  <u-side-drawer title="Main Menu">
+    <nav class="side-nav">
+      <ul>
+        <li>
+          <a href="/">
+            A Link
+          </a>
+        </li>
+        <li>
+          <a href="/">
+            Another Link
+          </a>
+        </li>
+        <li>
+          <a href="/">
+            A thrid link
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </u-side-drawer>
 
 </body>
+
+
+<script>
+
+  // const sideDrawer = document.querySelector('u-side-drawer');
+
+  // setTimeout(() => {
+  //   sideDrawer.title = 'Измененный Заголовок';
+  // }, 5000);
+
+</script>
+
 </html>
