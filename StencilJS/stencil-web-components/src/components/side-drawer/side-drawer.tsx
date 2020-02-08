@@ -55,7 +55,7 @@ export class SideDrawer {
       );
     }
 
-    return (
+    return [
       <aside class="aside">
         <header class="header">
           <h2 class="header__title">
@@ -74,7 +74,9 @@ export class SideDrawer {
         <main>
           {mainContent}
         </main>
-      </aside>
-    );
+      </aside>,
+      <div onClick={this.onCloseDrawer.bind(this)}
+           class={this.open ? 'overlay' : ''}></div>,
+    ];
   }
 }
