@@ -36,6 +36,10 @@ export class SideDrawer {
           </h2>
           <button onClick={this.onCloseDrawer.bind(this)}>X</button>
         </header>
+        <section class="tabs">
+          <button class="active">Navigation</button>
+          <button>Contacts</button>
+        </section>
         <main>
           <slot>test</slot>
         </main>

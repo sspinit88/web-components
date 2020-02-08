@@ -22,17 +22,32 @@
     color: $white
     font-size 1.5rem
 
-.header button {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 1rem;
-  color: white;
-  background: transparent;
-  font-size: 1.5rem;
-  border: none;
-}
+.header button
+  position: absolute
+  top: 0
+  right: 0
+  padding: 1rem
+  color: white
+  background: transparent
+  font-size: 1.5rem
+  border: none
+  outline: none
 
-.header button:focus {
-  outline: none;
-}
+
+.tabs
+  display: flex
+  width: 100%
+
+  button
+    width: 100%
+    background: transparent
+    border: none
+    outline: none
+    padding: .7rem 0
+    cursor: pointer
+    transition: all .3s ease-in
+
+    &:hover,
+    &.active
+      color: $white
+      background-color: rgba($black, .7)
