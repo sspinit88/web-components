@@ -14,7 +14,6 @@
 :host([open]) .aside
   left: 0
 
-
 .header
   padding: .5rem
   background-color $black
@@ -22,3 +21,18 @@
   &__title
     color: $white
     font-size 1.5rem
+
+.header button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1rem;
+  color: white;
+  background: transparent;
+  font-size: 1.5rem;
+  border: none;
+}
+
+.header button:focus {
+  outline: none;
+}

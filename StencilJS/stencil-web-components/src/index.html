@@ -36,38 +36,43 @@
 
 <body>
 
-  <u-side-drawer title="Main Menu">
-    <nav class="side-nav">
-      <ul>
-        <li>
-          <a href="/">
-            A Link
-          </a>
-        </li>
-        <li>
-          <a href="/">
-            Another Link
-          </a>
-        </li>
-        <li>
-          <a href="/">
-            A thrid link
-          </a>
-        </li>
-      </ul>
-    </nav>
-  </u-side-drawer>
+<button id="side-drawer-btn">Open Side Menu</button>
+
+<u-side-drawer title="Main Menu">
+  <nav class="side-nav">
+    <ul>
+      <li>
+        <a href="/">
+          A Link
+        </a>
+      </li>
+      <li>
+        <a href="/">
+          Another Link
+        </a>
+      </li>
+      <li>
+        <a href="/">
+          A thrid link
+        </a>
+      </li>
+    </ul>
+  </nav>
+</u-side-drawer>
 
 </body>
 
 
 <script>
 
-  // const sideDrawer = document.querySelector('u-side-drawer');
+  const sideDrawer = document.querySelector('u-side-drawer');
+  const sideDrawerButton = document.querySelector('#side-drawer-btn');
 
-  // setTimeout(() => {
-  //   sideDrawer.title = 'Измененный Заголовок';
-  // }, 5000);
+  sideDrawerButton.addEventListener('click', () => {
+    if (!sideDrawer.open) {
+      sideDrawer.open = true;
+    }
+  });
 
 </script>
 
