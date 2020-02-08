@@ -28,6 +28,8 @@ export class SideDrawer {
   }
 
   render() {
+    let mainContent = <slot/>;
+
     return (
       <aside class="aside">
         <header class="header">
@@ -41,7 +43,7 @@ export class SideDrawer {
           <button>Contacts</button>
         </section>
         <main>
-          <slot>test</slot>
+          { mainContent }
         </main>
       </aside>
     );
