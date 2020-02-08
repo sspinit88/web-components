@@ -1,24 +1,24 @@
 @import "vars.styl"
-    
-.aside 
-    position: fixed
-    top: 0
-    left: -100%
-    width: 30rem
-    max-width: 80%
-    height: 100vh
-    background-color: $grey
-    box-shadow: 0 2px 8px rgba($black, 0.26)
-    transition: left .3s ease-out
+
+.aside
+  position: fixed
+  top: 0
+  left: -100%
+  width: 30rem
+  max-width: 80%
+  height: 100vh
+  background-color: $grey
+  box-shadow: 0 2px 8px rgba($black, 0.26)
+  transition: left .3s ease-out
 
 :host([open]) .aside
-    left: 0
+  left: 0
 
 
+.header
+  padding: .5rem
+  background-color $black
 
-.header 
-    padding: .5rem
-    background-color $black
-    &__title
-        color: $white
-        font-size 1.5rem    
+  &__title
+    color: $white
+    font-size 1.5rem

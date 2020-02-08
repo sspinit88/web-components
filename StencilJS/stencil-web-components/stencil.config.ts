@@ -18,9 +18,12 @@ export const config: Config = {
   ],
   plugins: [
     stylus({
-      injectGlobalPaths: [
-        'src/components/side-drawer/vars.styl',
-        'src/components/side-drawer/side-drawer.styl'
+      // injectGlobalPaths: [
+      //   'src/components/side-drawer/vars.styl',
+      //   'src/components/side-drawer/side-drawer.styl'
+      // ],
+      includePaths: [
+        'src/components/side-drawer/'
       ]
     })
   ]
