@@ -13,6 +13,7 @@ export namespace Components {
   interface USideDrawer {
     'itemTitle': string;
     'open': boolean;
+    'openSidebar': () => Promise<void>;
   }
 }
 

@@ -1,4 +1,4 @@
-import { Component, h, Prop, State } from '@stencil/core';
+import { Component, h, Method, Prop, State } from '@stencil/core';
 
 @Component({
   tag: 'u-side-drawer',
@@ -25,6 +25,11 @@ export class SideDrawer {
     reflect: true,
     mutable: true,
   }) open: boolean;
+
+  @Method() /// делает метод публичным
+  openSidebar() {
+    this.open = true;
+  }
 
   onCloseDrawer(): void {
     this.open = false;
