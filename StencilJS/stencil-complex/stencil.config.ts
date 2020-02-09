@@ -1,4 +1,5 @@
 import { Config } from '@stencil/core';
+import { stylus } from '@stencil/stylus';
 
 export const config: Config = {
   namespace: 'stencil-complex',
@@ -14,5 +15,12 @@ export const config: Config = {
       type: 'www',
       serviceWorker: null // disable service workers
     }
+  ],
+  plugins: [
+    stylus({
+      includePaths: [
+        'src/components'
+      ]
+    }),
   ]
 };
