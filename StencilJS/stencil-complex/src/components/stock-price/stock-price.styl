@@ -1,6 +1,7 @@
 $primary = #ff6cfe
 $black = #000000
 $white = #ffffff
+$disabled = #ccc;
 
 :host
   display: block
@@ -16,6 +17,7 @@ $white = #ffffff
 
   .form
     box-sizing: border-box
+
     input
       font: inherit
       height: 30px
@@ -41,3 +43,9 @@ $white = #ffffff
       &:active
         background-color: rgba($primary, .7)
         border-color: rgba($primary, .7)
+
+      &:disabled
+        background-color: $disabled
+        border-color: $disabled
+        color: $white
+        cursor: not-allowed

@@ -9,18 +9,38 @@ import { AV_API_KEY } from '../global/global'
 })
 export class StockPrice {
 
+  stockInput: HTMLInputElement;
+
   //// получаем доступк к элементу
   @Element() el: HTMLElement;
 
   @State() fetchPrice: number;
 
+  @State() stockUserInput: string;
+
+  @State() stockUserInputValid: boolean;
+
+  onUserInput(e: Event): void {
+    this.stockUserInput = (e.target as HTMLInputElement).value;
+
+    if (this.stockUserInput.trim() !== '') {
+      this.stockUserInputValid = true;
+    } else {
+      this.stockUserInputValid = false;
+    }
+  }
+
   onFetchStockPrice(e: Event): void {
 
     e.preventDefault();
 
-    const stockSymbol: string = (
-      this.el.shadowRoot.querySelector('.stock-symbol'
-      ) as HTMLInputElement).value;
+    //// первый вариант получения значения из инпута
+    // const stockSymbol: string = (
+    //   this.el.shadowRoot.querySelector('.stock-symbol'
+    //   ) as HTMLInputElement).value;
+
+    //// второй вариант получения значения из инпута
+    const stockSymbol: string = this.stockInput.value;
 
     fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stockSymbol}&apikey=${AV_API_KEY}`)
       .then(res => {
@@ -40,8 +60,13 @@ export class StockPrice {
     return [
       <form onSubmit={this.onFetchStockPrice.bind(this)}
             class="form">
-        <input class="stock-symbol"/>
-        <button type="submit">Fetch</button>
+        <input ref={el => this.stockInput = el}
+               value={this.stockUserInput}
+               onInput={this.onUserInput.bind(this)}
+               class="stock-symbol"/>
+        <button disabled={!this.stockUserInputValid}
+                type="submit">Fetch
+        </button>
       </form>,
       <div>
         <p>Price: ${!!this.fetchPrice ? this.fetchPrice : 0}</p>
