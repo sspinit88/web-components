@@ -13,7 +13,8 @@ export class StockPrice {
 
   render() {
     return [
-      <form onSubmit={this.onFetchStockPrice}>
+      <form onSubmit={this.onFetchStockPrice}
+            class="form">
         <input class="stock-symbol"/>
         <button type="submit">Fetch</button>
       </form>,

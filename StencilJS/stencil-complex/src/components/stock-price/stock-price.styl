@@ -1,0 +1,41 @@
+$primary = #ff6cfe
+$black = #000000
+$white = #ffffff
+
+:host
+  display: block
+  max-width: 100%
+  font-family: sans-serif
+  margin: 2rem
+  padding: 1rem
+  border: 2px solid $primary
+  border-radius: 5px
+  box-sizing: border-box
+
+  .form
+    box-sizing: border-box
+    input
+      font: inherit
+      height: 30px
+      color: $primary
+      padding: 0.1rem 0.25rem
+      outline: none
+      margin-right: 4px
+      border: 1px solid $black
+      border-radius: 5px
+
+    button
+      font: inherit
+      height: 100%
+      padding: 0.5rem
+      color: $white
+      background-color: $primary
+      border: 1px solid $primary
+      cursor: pointer
+      border-radius: 5px
+      outline: none
+
+      &:hover,
+      &:active
+        background-color: rgba($primary, .7)
+        border-color: rgba($primary, .7)
