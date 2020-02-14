@@ -4,9 +4,14 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
+import { defineCustomElements } from 'u-stencil-complex/loader';
+
 if (environment.production) {
   enableProdMode();
 }
 
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
+
+// TODO добавляем кастомные элементы в проект
+defineCustomElements(window);
