@@ -2,7 +2,7 @@ import { Config } from '@stencil/core';
 import { stylus } from '@stencil/stylus';
 
 export const config: Config = {
-  namespace: 'stencil-web-components',
+  namespace: 'u-stencil-test',
   outputTargets: [
     {
       type: 'dist',
@@ -11,10 +11,10 @@ export const config: Config = {
     {
       type: 'docs-readme'
     },
-    {
-      type: 'www',
-      serviceWorker: null // disable service workers
-    }
+    // {
+    //   type: 'www',
+    //   serviceWorker: null // disable service workers
+    // }
   ],
   plugins: [
     stylus({
@@ -26,5 +26,5 @@ export const config: Config = {
         'src/components/side-drawer/'
       ]
     })
-  ]
+  ],
 };

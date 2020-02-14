@@ -2,7 +2,7 @@ import { Config } from '@stencil/core';
 import { stylus } from '@stencil/stylus';
 
 export const config: Config = {
-  namespace: 'stencil-complex',
+  namespace: 'u-stencil-complex',
   outputTargets: [
     {
       type: 'dist',
@@ -22,5 +22,10 @@ export const config: Config = {
         'src/components'
       ]
     }),
-  ]
+  ],
+  bundles: [
+    { components: ['u-spinner'] },
+    { components: ['u-stock-price'] },
+    { components: ['u-stock-finder'] },
+  ],
 };
