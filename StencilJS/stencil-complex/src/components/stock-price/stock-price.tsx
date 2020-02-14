@@ -1,4 +1,4 @@
-import { Component, h, State, Element } from '@stencil/core';
+import { Component, h, State, Element, Prop } from '@stencil/core';
 
 import { AV_API_KEY } from '../global/global'
 
@@ -15,12 +15,27 @@ export class StockPrice {
   @Element() el: HTMLElement;
 
   @State() fetchPrice: number;
-
   @State() stockUserInput: string;
-
   @State() stockUserInputValid: boolean;
-
   @State() error: string;
+
+  /*
+  *  устанавливаем значение атрибута
+  * */
+  @Prop() stockSymbol: string;
+
+  componentDidLoad() {
+    /*
+    * componentDidMount() вызывается сразу после монтирования
+    * (то есть, вставки компонента в DOM).
+    * В этом методе должны происходить действия, которые требуют наличия DOM-узлов.
+    * Это хорошее место для создания сетевых запросов.
+    * */
+    if (this.stockSymbol) {
+      this.fetchStockPrice(this.stockSymbol);
+    }
+  }
+
 
   onUserInput(e: Event): void {
     this.stockUserInput = (e.target as HTMLInputElement).value;
@@ -33,9 +48,7 @@ export class StockPrice {
   }
 
   onFetchStockPrice(e: Event): void {
-
     e.preventDefault();
-
     //// первый вариант получения значения из инпута
     // const stockSymbol: string = (
     //   this.el.shadowRoot.querySelector('.stock-symbol'
@@ -43,7 +56,11 @@ export class StockPrice {
 
     //// второй вариант получения значения из инпута
     const stockSymbol: string = this.stockInput.value;
+    this.fetchStockPrice(stockSymbol)
 
+  }
+
+  fetchStockPrice(stockSymbol) {
     fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stockSymbol}&apikey=${AV_API_KEY}`)
       .then(res => {
         if (res.status !== 200) {
