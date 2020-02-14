@@ -1,4 +1,4 @@
-import { Component, h, State, Element, Prop, Watch } from '@stencil/core';
+import { Component, h, State, Element, Prop, Watch, Listen } from '@stencil/core';
 
 import { AV_API_KEY } from '../global/global'
 
@@ -23,6 +23,7 @@ export class StockPrice {
   @State() stockUserInput: string;
   @State() stockUserInputValid: boolean;
   @State() error: string;
+  @State() loading: boolean = false;
 
   /*
   *  устанавливаем значение атрибута,
@@ -45,6 +46,19 @@ export class StockPrice {
     if (newValue !== oldValue) {
       this.stockUserInput = this.stockSymbol;
       this.fetchStockPrice(newValue);
+    }
+  }
+
+  /*
+  * Listen() - Декоратор для прослушивания DOM события,
+  * в том числе и те отправляются из @Events.
+  * */
+  @Listen('uSymbolSelected', { target: 'body' })
+  onStockSymbolSelected(e: CustomEvent): void {
+    if (e.detail && e.detail !== this.stockSymbol) {
+      this.stockSymbol = e.detail;
+      this.stockUserInputValid = true;
+      this.fetchStockPrice(e.detail);
     }
   }
 
@@ -127,16 +141,19 @@ export class StockPrice {
   }
 
   fetchStockPrice(stockSymbol) {
+    this.loading = true;
+
     fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stockSymbol}&apikey=${AV_API_KEY}`)
       .then(res => {
         if (res.status !== 200) {
           throw new Error('Invalid Value!');
         }
 
+        this.loading = false;
+
         return res.json();
       })
       .then(parseRes => {
-
         if (!parseRes['Global Quote']) {
           throw new Error('Invalid symbol!')
         }
@@ -148,12 +165,22 @@ export class StockPrice {
       .catch(
         err => {
           this.error = err.message;
+          this.fetchPrice = null;
+          this.loading = false;
         }
       );
   }
 
-  render() {
+  /*
+  * управляем классами хоста
+  * */
+  hostData() {
+    return {
+      class: this.error ? 'error' : '',
+    };
+  }
 
+  render() {
     let dataContent = <p>Please enter a symbol!</p>;
 
     if (!!this.error) {
@@ -164,6 +191,23 @@ export class StockPrice {
       dataContent = <p>Price: ${this.fetchPrice}</p>;
     }
 
+    if (!!this.loading) {
+      dataContent = <div class="lds-spinner">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>;
+    }
+
     return [
       <form onSubmit={this.onFetchStockPrice.bind(this)}
             class="form">
@@ -171,7 +215,7 @@ export class StockPrice {
                value={this.stockUserInput}
                onInput={this.onUserInput.bind(this)}
                class="stock-symbol"/>
-        <button disabled={!this.stockUserInputValid}
+        <button disabled={!this.stockUserInputValid || !!this.loading}
                 type="submit">Fetch
         </button>
       </form>,

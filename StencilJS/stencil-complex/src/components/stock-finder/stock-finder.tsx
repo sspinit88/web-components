@@ -1,5 +1,4 @@
-import { Component, h, State } from '@stencil/core';
-
+import { Component, h, State, Event, EventEmitter } from '@stencil/core';
 import { AV_API_KEY } from '../global/global';
 
 @Component({
@@ -13,12 +12,23 @@ export class StockFinder {
 
   @State() searchResult: { symbol: string, name: string }[] = [];
 
+  @Event({
+    bubbles: true,
+    composed: true,
+  }) uSymbolSelected: EventEmitter<string>;
+
+  @State() loading: boolean = false;
+
   onFindStocks(e: Event): void {
     e.preventDefault();
+
+    this.loading = true;
 
     fetch(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=BA&apikey=${AV_API_KEY}`)
       .then(res => res.json())
       .then(parsedRes => {
+        this.loading = false;
+
         this.searchResult = parsedRes['bestMatches']
           .map(match => {
             return {
@@ -30,12 +40,32 @@ export class StockFinder {
       .catch(
         err => {
           console.log('File: stock-finder.tsx, Line - 24, err:', err);
+          this.loading = false;
         }
       );
 
   }
 
+  onSelectSymbol(symbol: string): void {
+    this.uSymbolSelected
+      .emit(symbol);
+  }
+
   render() {
+    let content = this.searchResult.map(result => (
+      <li onClick={this.onSelectSymbol.bind(this, result.symbol)}
+          class="search-result__list">
+        <strong class="search-result__strong">
+          {result.symbol}
+        </strong>
+        {result.name}
+      </li>
+    ));
+
+    if (!!this.loading) {
+      content = <slot></slot>;
+    }
+
     return [
       <form onSubmit={this.onFindStocks.bind(this)}
             class="form">
@@ -47,14 +77,7 @@ export class StockFinder {
       </form>,
       <ul class="search-result">
         {
-          this.searchResult.map(result => (
-            <li class="search-result__list">
-              <strong class="search-result__strong">
-                {result.symbol}
-              </strong>
-              {result.name}
-            </li>
-          ))
+          content
         }
       </ul>
     ];
