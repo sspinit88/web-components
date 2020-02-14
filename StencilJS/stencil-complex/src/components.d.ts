@@ -10,6 +10,7 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
+  interface UStockFinder {}
   interface UStockPrice {
     'stockSymbol': string;
   }
@@ -18,22 +19,31 @@ export namespace Components {
 declare global {
 
 
+  interface HTMLUStockFinderElement extends Components.UStockFinder, HTMLStencilElement {}
+  var HTMLUStockFinderElement: {
+    prototype: HTMLUStockFinderElement;
+    new (): HTMLUStockFinderElement;
+  };
+
   interface HTMLUStockPriceElement extends Components.UStockPrice, HTMLStencilElement {}
   var HTMLUStockPriceElement: {
     prototype: HTMLUStockPriceElement;
     new (): HTMLUStockPriceElement;
   };
   interface HTMLElementTagNameMap {
+    'u-stock-finder': HTMLUStockFinderElement;
     'u-stock-price': HTMLUStockPriceElement;
   }
 }
 
 declare namespace LocalJSX {
+  interface UStockFinder {}
   interface UStockPrice {
     'stockSymbol'?: string;
   }
 
   interface IntrinsicElements {
+    'u-stock-finder': UStockFinder;
     'u-stock-price': UStockPrice;
   }
 }
@@ -44,6 +54,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
+      'u-stock-finder': LocalJSX.UStockFinder & JSXBase.HTMLAttributes<HTMLUStockFinderElement>;
       'u-stock-price': LocalJSX.UStockPrice & JSXBase.HTMLAttributes<HTMLUStockPriceElement>;
     }
   }
